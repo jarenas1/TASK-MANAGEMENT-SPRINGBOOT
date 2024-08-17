@@ -1,13 +1,12 @@
 package riwi.example.taskManagement.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;  // Asegúrate de usar jakarta.persistence
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 
 import java.time.LocalDate;
@@ -16,6 +15,7 @@ import java.time.LocalTime;
 @Entity
 //CREAR GETTERS, CONSTRUCTOR Y SETTER ESTO VIENE DE LOMBOOK
 @Data
+@Table(name = "tasks")
 @AllArgsConstructor
 @NoArgsConstructor
 public class TaskEntity {

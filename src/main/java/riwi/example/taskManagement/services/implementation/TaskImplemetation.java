@@ -32,8 +32,7 @@ public class TaskImplemetation implements TaskService {
         taskRepository.deleteById(id);
     }
 
-    @Override
-    public List<TaskEntity> findByTitle(String title) {
+    public List<TaskEntity> findByTitle(String title){
         return taskRepository.findT(title);
     }
 }

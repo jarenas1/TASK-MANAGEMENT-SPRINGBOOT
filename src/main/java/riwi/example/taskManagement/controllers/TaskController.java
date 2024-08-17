@@ -8,6 +8,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import riwi.example.taskManagement.entities.TaskEntity;
 import riwi.example.taskManagement.services.TaskService;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
@@ -28,20 +31,28 @@ public class TaskController {
     }
 
     @PostMapping("/save")
-    public String saveTask(@ModelAttribute TaskEntity taskEntity, RedirectAttributes redirectAttributes){
-        taskService.create(taskEntity);
-        redirectAttributes.addFlashAttribute("message", "Task saved successfully");
+    public String saveTask(@ModelAttribute TaskEntity task, RedirectAttributes redirectAttributes){
+        try {
+            if (task.getId() == null) {
+                task.setCrationDate(LocalDate.now());
+                task.setCreationTime(LocalTime.now());
+            }
+            taskService.create(task);
+            redirectAttributes.addFlashAttribute("message", "Task saved successfully");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "Error saving task: " + e.getMessage());
+        }
         return "redirect:/tasks";
     }
 
     @GetMapping("/edit/{id}")
-    public String showEditForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
-        TaskEntity taskEntity = taskService.findById(id);
-        if (taskEntity == null) {
+    public String showEditTaskForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
+        TaskEntity task = taskService.findById(id);
+        if (task == null) {
             redirectAttributes.addFlashAttribute("error", "Task not found");
             return "redirect:/tasks";
         }
-        model.addAttribute("task", taskEntity);
+        model.addAttribute("task", task);
         return "form-task";
     }
 
@@ -52,7 +63,7 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("/find")
+    @GetMapping("/search")
     public String searchTasks(@RequestParam String title, Model model) {
         model.addAttribute("tasks", taskService.findByTitle(title));
         return "list-tasks";
@@ -60,12 +71,12 @@ public class TaskController {
 
     @GetMapping("/detail/{id}")
     public String detailTask(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
-        TaskEntity taskEntity = taskService.findById(id);
-        if (taskEntity == null) {
+        TaskEntity task = taskService.findById(id);
+        if (task == null) {
             redirectAttributes.addFlashAttribute("error", "Task not found");
             return "redirect:/tasks";
         }
-        model.addAttribute("task", taskEntity);
+        model.addAttribute("task", task);
         return "detail-task";
     }
 }
