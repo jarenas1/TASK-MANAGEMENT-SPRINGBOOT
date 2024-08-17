@@ -33,6 +33,6 @@ public class TaskImplemetation implements TaskService {
     }
 
     public List<TaskEntity> findByTitle(String title){
-        return taskRepository.findT(title);
+        return taskRepository.findByTitle(title);
     }
 }
