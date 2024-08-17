@@ -24,17 +24,17 @@ public class TaskEntity {
     private Long id;
 
     @Column(length = 100, nullable = false)
-    private String titulo;
+    private String title;
 
     @Column(length = 255, nullable = true)
-    private String descripcion;
+    private String description;
 
     @Column(nullable = false)
-    private LocalDate fechaCreacion;
+    private LocalDate crationDate;
 
     @Column(nullable = false)
-    private LocalTime horaCreacion;
+    private LocalTime creationTime;
 
     @Column(length = 50, nullable = false)
-    private String estado;
+    private String status;
 }
