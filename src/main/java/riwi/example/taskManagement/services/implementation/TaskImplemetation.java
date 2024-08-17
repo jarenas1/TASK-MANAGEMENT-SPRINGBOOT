@@ -32,11 +32,8 @@ public class TaskImplemetation implements TaskService {
         taskRepository.deleteById(id);
     }
 
-    public void findTitle(String title){
-
-    }
     @Override
     public List<TaskEntity> findByTitle(String title) {
-        return null;
+        return taskRepository.findT(title);
     }
 }
