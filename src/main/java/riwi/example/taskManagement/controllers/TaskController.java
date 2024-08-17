@@ -19,7 +19,7 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    public String listTasks(Model model){
+    public String listTasks(Model model) {
         model.addAttribute("tasks", taskService.read());
         return "list-tasks";
     }
@@ -30,21 +30,21 @@ public class TaskController {
         return "form-task";
     }
 
+
     @PostMapping("/save")
-    public String saveTask(@ModelAttribute TaskEntity task, RedirectAttributes redirectAttributes){
+    public String saveTask(@ModelAttribute TaskEntity task, RedirectAttributes redirectAttributes) {
         try {
             if (task.getId() == null) {
-                task.setCrationDate(LocalDate.now());
+                task.setCreationDate(LocalDate.now());
                 task.setCreationTime(LocalTime.now());
             }
             taskService.create(task);
             redirectAttributes.addFlashAttribute("message", "Task saved successfully");
         } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "Error saving task: " + e.getMessage());
+            redirectAttributes.addFlashAttribute("error", "Error saving task:AAAAAAAA " + e.getMessage());
         }
         return "redirect:/tasks";
     }
-
     @GetMapping("/edit/{id}")
     public String showEditTaskForm(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes) {
         TaskEntity task = taskService.findById(id);

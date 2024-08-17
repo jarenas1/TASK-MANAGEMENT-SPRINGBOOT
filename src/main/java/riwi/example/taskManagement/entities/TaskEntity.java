@@ -1,6 +1,7 @@
 package riwi.example.taskManagement.entities;
 
-import jakarta.persistence.*;  // Asegúrate de usar jakarta.persistence
+
+import jakarta.persistence.*; // Asegúrate de usar jakarta.persistence
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,12 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-
-import java.time.LocalDate;
-import java.time.LocalTime;
-
 @Entity
-//CREAR GETTERS, CONSTRUCTOR Y SETTER ESTO VIENE DE LOMBOOK
 @Data
 @Table(name = "tasks")
 @AllArgsConstructor
@@ -29,10 +25,10 @@ public class TaskEntity {
     @Column(length = 255, nullable = true)
     private String description;
 
-    @Column(nullable = false)
-    private LocalDate crationDate;
+    @Column( nullable = true, updatable = false, columnDefinition = "DATE DEFAULT CURRENT_DATE")
+    private LocalDate creationDate;
 
-    @Column(nullable = false)
+    @Column( nullable = true, updatable = false)
     private LocalTime creationTime;
 
     @Column(length = 50, nullable = false)
